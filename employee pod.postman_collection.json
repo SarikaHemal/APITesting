@@ -1,0 +1,241 @@
+{
+	"info": {
+		"_postman_id": "50948541-d2c3-45f9-9f55-2e950a06c9f4",
+		"name": "employee pod",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "check if user is created an employee successfully",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "847f556c-97c7-4df5-b77a-b1fdd464c806",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    pm.environment.set(\"employee_id\",pm.response.json().id);",
+							"});",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"employee_name\"));",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"{{employee_name}}\",\n    \"salary\": \"12345\",\n    \"age\": \"23\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url\n}}/create",
+					"host": [
+						"{{base_url\n}}"
+					],
+					"path": [
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check if user is able to check record Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "05272e3a-d048-49ff-ba76-998f871ad941",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    ",
+							"});",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"employee_name\"));",
+							"});",
+							"pm.test(\"check employee salary\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.salary).to.eql(pm.environment.get(\"employee_salary\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url\n}}/employee/{{employee_id}}",
+					"host": [
+						"{{base_url\n}}"
+					],
+					"path": [
+						"employee",
+						"{{employee_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user can update exiting employee successfully Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93d4e92b-3ba1-4e2c-a3e6-5cc368a8b24e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    ",
+							"});",
+							"pm.test(\"Your check employee is updated\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"employee_name\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"{{employee_update}}\",\n    \"salary\": \"12345\",\n    \"age\": \"23\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url\n}} /update/{{employee_id}}",
+					"host": [
+						"{{base_url\n}} "
+					],
+					"path": [
+						"update",
+						"{{employee_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check if user able to delete record Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "518fb43e-fb15-4e12-84aa-1c3ec71b9f81",
+						"exec": [
+							"pm.test(\"check jsonData is same\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name=\"testind\").to.eql(\"record is deleted\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url\n}}/delete/{{employee_id}}",
+					"host": [
+						"{{base_url\n}}"
+					],
+					"path": [
+						"delete",
+						"{{employee_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check if user is able to update  record and varify if it successfully update Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bbf98e3d-bf14-4733-b075-b6b5d7c1cfd7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://dummy.restapiexample.com/api/v1/employee/138334",
+					"protocol": "http",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employee",
+						"138334"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
